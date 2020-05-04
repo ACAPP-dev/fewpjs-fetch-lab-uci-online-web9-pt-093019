@@ -14,16 +14,15 @@ function renderBooks(json) {
   const main = document.querySelector('main')
   console.log(`The 5th book in the series is: ${json[4].name}`)
   json.forEach(book => {
-    // debugger
     pageVar += book.numberOfPages
     if ((charVar <= 1031) && ((charVar + book.characters.length) <= 1031)) {
       charVar += book.characters.length
     }
     else if ((charVar <= 1031) && (charVar + book.characters.length > 1031)) {
-      // debugger
       const bookChar = 1031 - charVar + 1
-      console.log(`The 1,031st character is: ${book.characters[bookChar]}`)
-      fetchChar(book.characters[bookChar])
+      fetchChar(`https://cors-anywhere.herokuapp.com/${book.characters[bookChar]}`)
+      
+      
       charVar += book.characters.length
     }
     
@@ -42,7 +41,7 @@ function fetchChar(charURL) {
   fetch(charURL)
   .then (resp => resp.json())
   .then (json => {
-    console.log(json)
+    console.log(`The 1,031st character is: ${json.name}`)
   })
 
 }
